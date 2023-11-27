@@ -1,0 +1,16 @@
+# my-python-job.yaml.j2
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-python-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: my-container
+        image: oes52/myjob:latest
+        env:
+        - name: PYCODE
+          value: '{{ pycode }}'
+      restartPolicy: Never
+  backoffLimit: 1

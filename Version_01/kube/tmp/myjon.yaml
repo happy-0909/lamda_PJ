@@ -1,0 +1,19 @@
+# my-python-job.yaml
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-python-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: my-container
+        image: oes52/myjob:latest
+        env:
+        - name: PYCODE
+          value: |
+            print('Hello! world') \n
+            return 'Goodbye! world'
+      restartPolicy: Never
+  backoffLimit: 4
