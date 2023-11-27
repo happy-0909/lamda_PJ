@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'compressor',
     'channels',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'INFO',
 ]
 
-ASGI_APPLICATION = 'lamda_PJ.asgi.application'	# mysite 는 django 프로젝트 이름
+
 
 CHANNEL_LAYERS = {
     "default": {
@@ -79,7 +80,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'lamda_PJ.wsgi.application'
-
+ASGI_APPLICATION = 'lamda_PJ.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -129,8 +130,19 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_FINDERS = [
+    # ...
+    'compressor.finders.CompressorFinder',
+    # ...
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+COMPRESS_ENABLED = True
+COMPRESS_PARSER = 'compressor.parser.HtmlParser'
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
